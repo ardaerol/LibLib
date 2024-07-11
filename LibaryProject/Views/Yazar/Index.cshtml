@@ -1,0 +1,44 @@
+﻿@*DB*@
+@using LibaryProject.Models.Entity
+@model List<TblYazar>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Yazarlar</h2>
+@using (Html.BeginForm("Index", "Yazar", FormMethod.Get))
+{
+    <div style="margin-bottom:15px; margin-top:15px;">
+        <b>Aranacak Yazar Adını Girin: &nbsp;</b> @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </div>
+}
+
+@*Yazar Listeleme tablosu*@
+<table class="table table-striped">
+    <tr style="background-color:rgb(239, 144, 12)">
+        <th>ID</th>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+        <th>Yazarın Kitapları</th>
+    </tr>
+    @foreach (var yzr in Model)
+    {
+        <tr>
+            <td>@yzr.ID</td>
+            <td>@yzr.Ad</td>
+            <td>@yzr.Soyad</td>
+            @*Alert ile Yazar silme işlemi*@
+            <td>@Html.ActionLink("Sil", "DeleteYazar", new { id = yzr.ID }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz ?')" })</td>
+            @*ID parametresi ile beraber redirect işlemi*@
+            <td><a href="/Yazar/GetYazar/@yzr.ID" class="btn btn-success">Güncelle</a></td>
+            <td><a href="/Yazar/YazarKitaplar/@yzr.ID" class="btn btn-success" style="background-color:mediumvioletred">Yazarın Kitapları</a></td>
+        </tr>
+    }
+</table>
+
+@*Yeni yazar ekleme butonu*@
+<a class="btn btn-primary" href="/Yazar/AddYazar/">Yeni Yazar Ekle</a>

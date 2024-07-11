@@ -1,0 +1,36 @@
+﻿@model LibaryProject.Models.Entity.TblHareket
+@{
+    ViewBag.Title = "OduncVer";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<h2>Ödünç Kitap Ver</h2>
+@*html helper ile kategori ekleme*@
+<form class="form-group" method="post">
+    <div></div>
+    <div style="margin-top:15px">
+        <label>Üye Seçiniz</label>
+        @*@Html.TextBoxFor(ktp => ktp.Uye, new { @class = "form-control" })*@
+        @Html.DropDownListFor(k => k.TblUyeler.ID, (List<SelectListItem>)ViewBag.dgr1, new {@class="form-control"})
+    </div>
+    <div style="margin-top:15px">
+        <label>Kitap Seçiniz</label>
+        @Html.DropDownListFor(k => k.TblKitap.ID, (List<SelectListItem>)ViewBag.dgr2, new { @class = "form-control" })
+    </div>
+    <div style="margin-top:15px">
+        <label>Personel Seçiniz</label>
+        @Html.DropDownListFor(k => k.TblPersonel.ID, (List<SelectListItem>)ViewBag.dgr3, new { @class = "form-control" })
+    </div>
+    <div style="margin-top:15px">
+        <label>Kitap Alış Tarihi</label>
+        <input type="text" class="form-control" name="AlisTarih" value="@DateTime.Now.ToShortDateString()" />
+    </div>
+    <div style="margin-top:15px">
+        <label>Kitap İade Tarihi</label>
+        <input type="text" class="form-control" name="IadeTarih" value="@DateTime.Now.AddDays(7).ToShortDateString()" />
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info" style="background-color:#c30bc4">Kitap Ödünç Ver</button>
+        <input type="hidden" value="False" name="IslemDurum" />
+    </div>
+</form>
+
